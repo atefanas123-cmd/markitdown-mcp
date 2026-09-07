@@ -1,19 +1,17 @@
 import os
 
-from mcp.server.fastmcp import FastMCP
 from markitdown import MarkItDown
+from mcp.server.fastmcp import FastMCP
 
 
 # Create MCP server
-mcp = FastMCP(
-    "MarkitDownMCP",
-)
+mcp = FastMCP("MarkItDown")
 
 
 @mcp.tool()
 async def convert_to_markdown(uri: str) -> str:
     """
-    Convert a URL or data URI into Markdown.
+    Convert a URL or supported data URI into Markdown.
 
     Args:
         uri: HTTP/HTTPS URL or supported data URI.
@@ -29,9 +27,11 @@ async def convert_to_markdown(uri: str) -> str:
         in ("true", "1", "yes")
     )
 
-    result = MarkItDown(
+    converter = MarkItDown(
         enable_plugins=enable_plugins
-    ).convert_uri(uri)
+    )
+
+    result = converter.convert_uri(uri)
 
     return result.markdown
 
