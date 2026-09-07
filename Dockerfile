@@ -1,13 +1,9 @@
 FROM python:3.12-slim
 
-WORKDIR /app
-
-RUN pip install --no-cache-dir markitdown mcp
-
-COPY server.py .
+RUN pip install --no-cache-dir "markdown-mcp" "mcp>=1.28,<2"
 
 ENV PORT=10000
 
 EXPOSE 10000
 
-CMD ["python", "server.py"]
+CMD sh -c "markdown-mcp --http --host 0.0.0.0 --port $PORT"
