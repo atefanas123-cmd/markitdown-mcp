@@ -1,11 +1,10 @@
 import os
 
 from markitdown import MarkItDown
-from mcp.server.fastmcp import FastMCP
+from mcp.server import MCPServer
 
 
-# Create MCP server
-mcp = FastMCP("MarkItDown")
+mcp = MCPServer("MarkItDownMCP")
 
 
 @mcp.tool()
@@ -43,4 +42,5 @@ if __name__ == "__main__":
         transport="streamable-http",
         host="0.0.0.0",
         port=port,
+        streamable_http_path="/mcp",
     )
